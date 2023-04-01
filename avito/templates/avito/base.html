@@ -1,0 +1,47 @@
+{% load static %}
+{% load avito_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link type="text/css" href="{% static 'avito/css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+{% if request.user.is_authenticated %}
+    <p>Привет, {{ user.username }}! | <a href="{% url 'logout' %}">Выйти</a></p>
+{% else %}
+    <p><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a>
+{% endif %}
+{% block mainmenu %}
+    {% show_main_menu %}
+{% endblock mainmenu %}
+
+<div class="layout">
+  <div class="sidebar">
+   <ul>
+       {% if cat_selected == 0 %}
+        <li class="selected">Все категории</li>
+    {% else %}
+        <li><a href="{% url 'main' %}">Все категории</a> </li>
+    {% endif %}
+   {% show_categories cat_selected=cat_selected %}
+   </ul>
+  </div>
+</div>
+<h1>{{ title }}</h1>
+{% if page_obj.has_other_pages %}
+    <ul>
+        {% for p in paginator.page_range %}
+            {% if page_obj.number == p %}
+                {{ p }}
+            {% else %}
+            <a href="?page={{ p }}">{{ p }}</a>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
+{% block content %}
+{% endblock content %}
+</body>
+</html>

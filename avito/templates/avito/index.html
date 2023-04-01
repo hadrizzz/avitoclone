@@ -1,0 +1,15 @@
+{% extends 'avito/base.html' %}
+
+{% block content %}
+<ul>
+    {% for p in posts %}
+        <li>
+            <h2><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h2>
+        <p class="first">Категория: {{ p.cat }}</p>
+        <p class="last">Дата: {{ p.time_update|date:"d-m-Y" }}</p>
+            <p><img src="{{ p.photo1.url }}">  <img src="{{ p.photo2.url }}">  <img src="{{ p.photo3.url }}"></p>
+            <p>{{ p.content }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

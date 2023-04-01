@@ -1,0 +1,14 @@
+{% extends 'avito/base.html' %}
+
+{% block content %}
+    {% if post.photo1 %}
+        <p><img src="{{ post.photo1.url }}"></p>
+    {% endif %}
+    {% if post.photo2 %}
+        <p><img class="img-article-left" src="{{ post.photo2.url }}"></p>
+    {% endif %}
+    {% if post.photo3 %}
+        <p><img src="{{ post.photo3.url }}"></p>
+    {% endif %}
+    {{ post.content|linebreaks }}
+{% endblock content %}
